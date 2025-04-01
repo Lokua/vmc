@@ -10,20 +10,24 @@ const pages = Array(4)
 
 type Props = {
   channel: number
+  hrcc: boolean
   outputPort: MIDIOutput | null
   outputPorts: MIDIOutput[]
   page: number
   onChangeChannel: (channel: number) => void
+  onChangeHrcc: (hrcc: boolean) => void
   onChangeOutputPort: (port: string) => void
   onChangePage: (page: number) => void
 }
 
 export default function Header({
   channel,
+  hrcc,
   outputPort: outputPort,
   outputPorts,
   page,
   onChangeChannel,
+  onChangeHrcc,
   onChangeOutputPort,
   onChangePage,
 }: Props) {
@@ -49,6 +53,17 @@ export default function Header({
             options={channelOptions}
             onChange={(e) => {
               onChangeChannel(parseInt(e.currentTarget.value, 10) - 1)
+            }}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="hrcc">Hi-Res</label>
+          <input
+            id="hrcc"
+            type="checkbox"
+            checked={hrcc}
+            onChange={(e) => {
+              onChangeHrcc(e.currentTarget.checked)
             }}
           />
         </fieldset>

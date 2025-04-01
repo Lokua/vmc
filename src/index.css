@@ -36,8 +36,8 @@
     --control-track-color: #444;
     --control-knob-color: #888;
     --control-disabled-text-color: #777;
-    --control-on-background-color: green;
-    --control-on-text-color: var(--control-text-color);
+    --control-on-background-color: var(--control-text-color);
+    --control-on-text-color: var(--control-background-color);
     --console-background-color: #111;
   }
 }
@@ -201,7 +201,6 @@ input[type='range']::-webkit-slider-thumb {
 
 input[type='checkbox'] {
   -webkit-appearance: none;
-  font-family: Arial, Helvetica, sans-serif !important;
   appearance: none;
   width: calc(var(--control-height) - 4px);
   height: calc(var(--control-height) - 4px);
@@ -209,19 +208,30 @@ input[type='checkbox'] {
   border-color: transparent;
   border-radius: 2px;
   cursor: pointer;
+  position: relative;
 }
 
-input[type='checkbox']:checked {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+input[type='checkbox']:checked::before,
+input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  background-color: var(--control-text-color);
+  height: 60%;
+  top: 50%;
+  left: 50%;
 }
 
 input[type='checkbox']:checked::before {
-  content: '\2715';
-  color: var(--control-text-color);
-  font-size: 14px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+input[type='checkbox']:checked::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+input[type='checkbox'] {
+  transition: background-color 0.2s ease-in-out;
 }
 
 .number-box {
@@ -245,6 +255,10 @@ input[type='checkbox']:checked::before {
   > section {
     display: flex;
     align-items: center;
+  }
+
+  fieldset:not(:last-child) {
+    margin-right: 4px;
   }
 }
 

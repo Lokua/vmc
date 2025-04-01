@@ -5,11 +5,16 @@ const initialValues = Array(128).fill(0)
 const itemsPerPage = 32
 
 type Props = {
+  hrcc: boolean
   page: number
   onChange: (cc: number, value: number) => void
 }
 
-export default function App({ onChange: parentOnChange, page }: Props) {
+export default function Controls({
+  onChange: parentOnChange,
+  page,
+  hrcc,
+}: Props) {
   const [values, setValues] = useState(initialValues)
 
   function onChange(cc: number, value: number) {
@@ -25,8 +30,10 @@ export default function App({ onChange: parentOnChange, page }: Props) {
 
   return (
     <main id="controls">
-      {currentPageValues.map((value, index) => {
+      {currentPageValues.map((originalValue, index) => {
         const cc = startIndex + index
+        const max = hrcc && cc < 32 ? 16_383 : 127
+        const value = Math.min(originalValue, max)
 
         return (
           <fieldset key={cc}>
@@ -34,6 +41,9 @@ export default function App({ onChange: parentOnChange, page }: Props) {
             <input
               id={`control-${cc}`}
               type="range"
+              min={0}
+              max={max}
+              step={1}
               value={value.toString()}
               onChange={(e) => {
                 onChange(cc, parseFloat(e.currentTarget.value))
@@ -42,7 +52,7 @@ export default function App({ onChange: parentOnChange, page }: Props) {
             <NumberBox
               value={value}
               min={0}
-              max={127}
+              max={max}
               decimals={0}
               step={1}
               onChange={(v) => {
