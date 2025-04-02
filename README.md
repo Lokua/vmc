@@ -16,4 +16,5 @@ any MIDI output on your system.
 # Status
 
 The app is working locally as well as when built on a Mac. It is not quite at v1
-in my opinion but is good enough.
+in my opinion but is good enough for me. And installer for MacOS is in the
+[release section](https://github.com/Lokua/vmc/releases/tag/0.0.0-beta)
