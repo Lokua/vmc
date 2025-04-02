@@ -1,48 +1,35 @@
-import { app, BrowserWindow } from "electron";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname, "..");
-const VITE_DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL;
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
-let win;
-function createWindow() {
-  win = new BrowserWindow({
-    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+import { app as n, BrowserWindow as t } from "electron";
+import { fileURLToPath as a } from "node:url";
+import o from "node:path";
+const s = o.dirname(a(import.meta.url));
+process.env.APP_ROOT = o.join(s, "..");
+const i = process.env.VITE_DEV_SERVER_URL, m = o.join(process.env.APP_ROOT, "dist-electron"), r = o.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = i ? o.join(process.env.APP_ROOT, "public") : r;
+let e;
+function c() {
+  e = new t({
+    icon: o.join(process.env.VITE_PUBLIC, "icons/vmc.png"),
     width: 700,
     height: 580,
     minWidth: 600,
     minHeight: 580,
     maxHeight: 580,
     webPreferences: {
-      preload: path.join(__dirname, "preload.mjs")
+      preload: o.join(s, "preload.mjs")
     }
-  });
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
-  }
+  }), e.webContents.on("did-finish-load", () => {
+    e == null || e.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), i ? e.loadURL(i) : e.loadFile(o.join(r, "index.html"));
 }
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+n.on("window-all-closed", () => {
+  process.platform !== "darwin" && (n.quit(), e = null);
 });
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+n.on("activate", () => {
+  t.getAllWindows().length === 0 && c();
 });
-app.whenReady().then(createWindow);
+n.whenReady().then(c);
 export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
+  m as MAIN_DIST,
+  r as RENDERER_DIST,
+  i as VITE_DEV_SERVER_URL
 };

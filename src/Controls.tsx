@@ -50,10 +50,10 @@ export default function Controls({
               }}
             />
             <NumberBox
+              className="number-box"
               value={value}
               min={0}
               max={max}
-              decimals={0}
               step={1}
               onChange={(v) => {
                 onChange(cc, v)

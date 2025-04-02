@@ -12,3 +12,8 @@ any MIDI output on your system.
 ![Light Theme](./assets/vmc-light.png)
 
 ![Dark Theme](./assets/vmc-dark.png)
+
+# Status
+
+The app is working locally as well as when built on a Mac. It is not quite at v1
+in my opinion but is good enough.
