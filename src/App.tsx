@@ -36,8 +36,7 @@ function getStoredChannel() {
 function getStoredPort(outputPorts: MIDIOutput[]) {
   const stored = localStorage.getItem(StorageKeys.OutputPortName)
   if (stored) {
-    const port = outputPorts.find((p) => p.name === stored)!
-    return port
+    return outputPorts.find((p) => p.name === stored)!
   }
   return outputPorts[0]
 }

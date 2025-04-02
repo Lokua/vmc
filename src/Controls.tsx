@@ -46,7 +46,7 @@ export default function Controls({
               step={1}
               value={value.toString()}
               onChange={(e) => {
-                onChange(cc, parseFloat(e.currentTarget.value))
+                onChange(cc, e.currentTarget.valueAsNumber)
               }}
             />
             <NumberBox
@@ -55,8 +55,8 @@ export default function Controls({
               min={0}
               max={max}
               step={1}
-              onChange={(v) => {
-                onChange(cc, v)
+              onChange={(value) => {
+                onChange(cc, value)
               }}
             />
           </fieldset>
