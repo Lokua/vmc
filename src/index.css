@@ -113,15 +113,17 @@ label {
 
 button:focus,
 input:focus,
-select:focus {
-  outline: none;
-}
-
-button:focus,
-input:focus,
 select:focus,
 .number-box:focus,
 .select-wrapper:has(select:focus) > select {
+  outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.number-box:focus-visible,
+.select-wrapper:has(select:focus-visible) > select {
   box-shadow: 0 0 0 2px var(--meter-color);
   border-color: var(--meter-color);
 }
