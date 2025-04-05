@@ -17,8 +17,7 @@
     --control-track-color: #ddd;
     --control-knob-color: #777;
     --control-disabled-text-color: #aaa;
-    --control-on-background-color: #363636;
-    --control-on-text-color: #eee;
+    --control-on-background-color: #666;
     --console-background-color: #f4f4f4;
   }
 }
@@ -36,8 +35,7 @@
     --control-track-color: #444;
     --control-knob-color: #888;
     --control-disabled-text-color: #777;
-    --control-on-background-color: var(--control-text-color);
-    --control-on-text-color: var(--control-background-color);
+    --control-on-background-color: #aaa;
     --console-background-color: #111;
   }
 }
@@ -113,10 +111,25 @@ label {
   color: var(--text-color);
 }
 
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+}
+
+button:focus,
+input:focus,
+select:focus,
+.number-box:focus,
+.select-wrapper:has(select:focus) > select {
+  box-shadow: 0 0 0 2px var(--meter-color);
+  border-color: var(--meter-color);
+}
+
 button,
+input,
 select,
-.number-box,
-input {
+.number-box {
   height: var(--control-height);
   margin: var(--control-margin);
   font-size: var(--control-font-size);
@@ -165,8 +178,7 @@ button {
   }
 
   &.on {
-    background-color: var(--control-on-background-color);
-    color: var(--control-on-text-color);
+    border: 1px solid var(--control-on-background-color);
   }
 }
 
@@ -237,14 +249,10 @@ input[type='checkbox'] {
 .number-box {
   max-width: 54px;
   padding: 6px;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .number-box:focus {
   outline: none;
-  box-shadow: none;
-  border-color: inherit;
 }
 
 #settings {

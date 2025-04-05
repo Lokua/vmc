@@ -1,3 +1,4 @@
+import { DisplayMode } from './App'
 import Select from './Select'
 
 const channelOptions = Array(16)
@@ -10,11 +11,13 @@ const pages = Array(4)
 
 type Props = {
   channel: number
+  displayMode: string
   hrcc: boolean
   outputPort: MIDIOutput | null
   outputPorts: MIDIOutput[]
   page: number
   onChangeChannel: (channel: number) => void
+  onChangeDisplayMode: (displayMode: DisplayMode) => void
   onChangeHrcc: (hrcc: boolean) => void
   onChangeOutputPort: (port: string) => void
   onChangePage: (page: number) => void
@@ -22,11 +25,13 @@ type Props = {
 
 export default function Header({
   channel,
+  displayMode,
   hrcc,
   outputPort: outputPort,
   outputPorts,
   page,
   onChangeChannel,
+  onChangeDisplayMode,
   onChangeHrcc,
   onChangeOutputPort,
   onChangePage,
@@ -40,9 +45,7 @@ export default function Header({
             id="output-port"
             value={outputPort?.name || ''}
             options={outputPorts.map((port) => port.name as string)}
-            onChange={(e) => {
-              onChangeOutputPort(e.currentTarget.value)
-            }}
+            onChange={onChangeOutputPort}
           />
         </fieldset>
         <fieldset>
@@ -51,8 +54,8 @@ export default function Header({
             id="channel"
             value={((channel || 0) + 1).toString()}
             options={channelOptions}
-            onChange={(e) => {
-              onChangeChannel(parseInt(e.currentTarget.value, 10) - 1)
+            onChange={(value) => {
+              onChangeChannel(parseInt(value, 10) - 1)
             }}
           />
         </fieldset>
@@ -64,6 +67,17 @@ export default function Header({
             checked={hrcc}
             onChange={(e) => {
               onChangeHrcc(e.currentTarget.checked)
+            }}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="display-mode">Display Mode</label>
+          <Select
+            id="display-mode"
+            value={displayMode}
+            options={['0-127', '0-1', '0-100']}
+            onChange={(value) => {
+              onChangeDisplayMode(value as DisplayMode)
             }}
           />
         </fieldset>
